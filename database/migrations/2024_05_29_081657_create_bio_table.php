@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('bios', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('content');
-            $table->string('image')->nullable();
-            $table->unsignedBigInteger('likes')->nullable();
-            $table->boolean('is_published')->default(1);
+            $table->string('gender');
+            $table->unsignedSmallInteger('age');
+            $table->unsignedFloat('height');
+            $table->unsignedFloat('weight');
+            $table->string('eyes_color');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('bios');
     }
 };

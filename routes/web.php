@@ -33,4 +33,4 @@ Route::get('my_name', 'App\Http\Controllers\MyNameController@indexName');
 
 Route::get('my_work', 'App\Http\Controllers\MyWorkController@indexWork');
 
-Route::get('my_page', 'App\Http\Controllers\MyPageController@index');
+Route::get('/posts', 'App\Http\Controllers\PostController@indexPost');

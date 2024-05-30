@@ -34,3 +34,10 @@ Route::get('my_name', 'App\Http\Controllers\MyNameController@indexName');
 Route::get('my_work', 'App\Http\Controllers\MyWorkController@indexWork');
 
 Route::get('/posts', 'App\Http\Controllers\PostController@indexPost');
+
+Route::get('/posts/create', 'App\Http\Controllers\PostController@create');
+Route::get('/posts/update', 'App\Http\Controllers\PostController@update');
+Route::get('/posts/delete', 'App\Http\Controllers\PostController@delete');
+Route::get('/sort', 'App\Http\Controllers\SortController@Sort');
+Route::get('/first_or_create', 'App\Http\Controllers\PostController@firstOrCreate');
+Route::get('/update_or_create', 'App\Http\Controllers\PostController@updateOrCreate');

@@ -9,9 +9,8 @@ class PostController extends Controller
 {
     public function indexPost()
     {
-        $posts = Post::where('is_published', 0)->firts();
-        dump($posts->title);
-        return dump('end');
+        $posts = Post::all();
+        return view('posts', compact('posts'));
     }
 
     public function create()
@@ -73,7 +72,7 @@ class PostController extends Controller
 
         $post = Post::firstOrCreate([
             'title' => 'some title from phpshtorm',
-        ],[
+        ], [
             'title' => 'some title from phpshtorm',
             'content' => 'some content',
             'image' => 'some imageblabla.jpg',
@@ -96,7 +95,7 @@ class PostController extends Controller
 
         $post = Post::updateOrCreate([
             'title' => 'some title from phpshtorm',
-        ],[
+        ], [
             'title' => 'some title from phpshtorm',
             'content' => 'not old some post some content',
             'image' => 'not old some post some imageblabla.jpg',

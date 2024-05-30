@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -21,5 +23,6 @@
     </div>
     @yield('content')
 </div>
+<script src="{{ asset( 'js/bootstrap.min.js' ) }}"></script>
 </body>
 </html>

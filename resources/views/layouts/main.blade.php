@@ -28,6 +28,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('contact.index') }}">Contacts</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('product.index') }}">Product</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('product.index') }}">Passports(in developing)</a>
                         </li>
                     </ul>
                 </div>

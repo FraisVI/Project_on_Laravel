@@ -7,101 +7,52 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function indexPost()
+    public function index()
     {
         $posts = Post::all();
-        return view('posts', compact('posts'));
+        return view('post.index', compact('posts'));
     }
 
     public function create()
     {
-        $postsArray = [
-            [
-                'title' => 'title from phpshtorm',
-                'content' => 'some interesting content',
-                'image' => 'imageblabla.jpg',
-                'likes' => 20,
-                'is_published' => 1,
-            ],
-            [
-                'title' => 'another title from phpshtorm',
-                'content' => 'another some interesting content',
-                'image' => 'another imageblabla.jpg',
-                'likes' => 50,
-                'is_published' => 1,
-            ],
-        ];
-
-        foreach ($postsArray as $item) {
-            Post::create($item);
-        }
-
-        dd('created');
+        return view('post.create');
     }
 
-    public function update()
+    public function store()
     {
-        $post = Post::find(12);
-
-        $post->update([
-            'title' => 'updated',
-            'content' => 'updated',
-            'image' => 'updated',
-            'likes' => 150,
-            'is_published' => 0,
+        $data =\request()->validate([
+           'title' => 'string',
+           'content' => 'string',
+           'image' => 'string',
         ]);
-        echo 'updated';
+        Post::create($data);
+        return redirect()->route('post.index');
     }
 
-    public function delete()
+    public function show(Post $post)
     {
-        $post = Post::find(2);
+        return view('post.show', compact('post'));
+    }
+
+    public function edit(Post $post)
+    {
+        return view('post.edit', compact('post'));
+    }
+
+    public function update(Post $post)
+    {
+        $data =\request()->validate([
+            'title' => 'string',
+            'content' => 'string',
+            'image' => 'string',
+        ]);
+        $post->update($data);
+        return redirect()->route('post.show', $post->id);
+    }
+
+    public function destroy(Post $post)
+    {
         $post->delete();
-        dd('deleted');
-    }
-
-    public function firstOrCreate()
-    {
-        $anotherPost = [
-            'title' => 'some post',
-            'content' => 'some content',
-            'image' => 'some imageblabla.jpg',
-            'likes' => 50000,
-            'is_published' => 1,
-        ];
-
-        $post = Post::firstOrCreate([
-            'title' => 'some title from phpshtorm',
-        ], [
-            'title' => 'some title from phpshtorm',
-            'content' => 'some content',
-            'image' => 'some imageblabla.jpg',
-            'likes' => 50000,
-            'is_published' => 1,
-        ]);
-        dump($post->content);
-        dd('finished');
-    }
-
-    public function updateOrCreate()
-    {
-        $anotherPost = [
-            'title' => 'updateOrCreate some post',
-            'content' => 'updateOrCreate some post some content',
-            'image' => 'updateOrCreate some post some imageblabla.jpg',
-            'likes' => 500,
-            'is_published' => 1,
-        ];
-
-        $post = Post::updateOrCreate([
-            'title' => 'some title from phpshtorm',
-        ], [
-            'title' => 'some title from phpshtorm',
-            'content' => 'not old some post some content',
-            'image' => 'not old some post some imageblabla.jpg',
-            'likes' => 500,
-            'is_published' => 1,
-        ]);
-        dump($post->content);
+        return redirect()->route('post.index');
     }
 }

@@ -1,5 +1,12 @@
 <?php
 
+use App\Http\Controllers\Post\CreateController;
+use App\Http\Controllers\Post\DestroyController;
+use App\Http\Controllers\Post\EditController;
+use App\Http\Controllers\Post\IndexController;
+use App\Http\Controllers\Post\ShowController;
+use App\Http\Controllers\Post\StoreController;
+use App\Http\Controllers\Post\UpdateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,13 +25,15 @@ Route::get('/', function () {
 });
 
 //Route for post
-Route::get('/posts', 'App\Http\Controllers\PostController@index')->name('post.index');
-Route::get('/posts/create', 'App\Http\Controllers\PostController@create')->name('post.create');
-Route::post('/posts', 'App\Http\Controllers\PostController@store')->name('post.store');
-Route::get('/posts/{post}', 'App\Http\Controllers\PostController@show')->name('post.show');
-Route::patch('/posts/{post}', 'App\Http\Controllers\PostController@update')->name('post.update');
-Route::get('/posts/{post}/edit', 'App\Http\Controllers\PostController@edit')->name('post.edit');
-Route::delete('/posts/{post}', 'App\Http\Controllers\PostController@destroy')->name('post.delete');
+Route::group(['namespace' => 'App\Http\Controllers\Post'], (function () {
+        Route::get('/posts','IndexController')->name('post.index');
+        Route::get('posts/create', 'CreateController')->name('post.create');
+        Route::post('posts', 'StoreController')->name('post.store');
+        Route::get('posts/{post}', 'ShowController')->name('post.show');
+        Route::patch('posts/{post}', 'UpdateController')->name('post.update');
+        Route::get('posts/{post}/edit', 'EditController')->name('post.edit');
+        Route::delete('posts/{post}', 'DestroyController')->name('post.destroy');
+    }));
 
 //Route for product
 Route::get('/product', 'App\Http\Controllers\ProductController@index')->name('product.index');

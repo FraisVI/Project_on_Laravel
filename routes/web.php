@@ -26,14 +26,14 @@ Route::get('/', function () {
 
 //Route for post
 Route::group(['namespace' => 'App\Http\Controllers\Post'], (function () {
-        Route::get('/posts','IndexController')->name('post.index');
-        Route::get('posts/create', 'CreateController')->name('post.create');
-        Route::post('posts', 'StoreController')->name('post.store');
-        Route::get('posts/{post}', 'ShowController')->name('post.show');
-        Route::patch('posts/{post}', 'UpdateController')->name('post.update');
-        Route::get('posts/{post}/edit', 'EditController')->name('post.edit');
-        Route::delete('posts/{post}', 'DestroyController')->name('post.destroy');
-    }));
+    Route::get('/posts', 'IndexController')->name('post.index');
+    Route::get('posts/create', 'CreateController')->name('post.create');
+    Route::post('posts', 'StoreController')->name('post.store');
+    Route::get('posts/{post}', 'ShowController')->name('post.show');
+    Route::patch('posts/{post}', 'UpdateController')->name('post.update');
+    Route::get('posts/{post}/edit', 'EditController')->name('post.edit');
+    Route::delete('posts/{post}', 'DestroyController')->name('post.destroy');
+}));
 
 //Route for product
 Route::get('/product', 'App\Http\Controllers\ProductController@index')->name('product.index');
@@ -45,6 +45,13 @@ Route::get('/products/{product}/edit', 'App\Http\Controllers\ProductController@e
 Route::delete('/products/{product}', 'App\Http\Controllers\ProductController@destroy')->name('product.delete');
 
 //Another route
+
+Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin'], (function () {
+    Route::group(['namespace' => 'Post'], (function () {
+        Route::get('/post', 'IndexController')->name('admin.post.index');
+    }));
+}));
+
 Route::get('/sort', 'App\Http\Controllers\SortController@Sort');
 Route::get('/first_or_create', 'App\Http\Controllers\PostController@firstOrCreate');
 Route::get('/update_or_create', 'App\Http\Controllers\PostController@updateOrCreate');

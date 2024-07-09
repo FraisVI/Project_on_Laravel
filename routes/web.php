@@ -1,12 +1,6 @@
 <?php
 
-use App\Http\Controllers\Post\CreateController;
-use App\Http\Controllers\Post\DestroyController;
-use App\Http\Controllers\Post\EditController;
-use App\Http\Controllers\Post\IndexController;
-use App\Http\Controllers\Post\ShowController;
-use App\Http\Controllers\Post\StoreController;
-use App\Http\Controllers\Post\UpdateController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,7 +40,7 @@ Route::delete('/products/{product}', 'App\Http\Controllers\ProductController@des
 
 //Another route
 
-Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin'], (function () {
+Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => 'admin'], (function () {
     Route::group(['namespace' => 'Post'], (function () {
         Route::get('/post', 'IndexController')->name('admin.post.index');
     }));
@@ -60,3 +54,7 @@ Route::get('/contacts', 'App\Http\Controllers\ContactController@index')->name('c
 Route::get('/about', 'App\Http\Controllers\AboutController@index')->name('about.index');
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
